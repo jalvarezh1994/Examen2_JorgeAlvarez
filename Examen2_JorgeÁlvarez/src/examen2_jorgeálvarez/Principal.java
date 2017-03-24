@@ -57,6 +57,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         ArbolVerPlaylistsJt = new javax.swing.JTree();
+        jLabel6 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         EliminarUsuarioPm = new javax.swing.JPopupMenu();
@@ -206,7 +207,14 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Crear Playlist", jPanel8);
 
+        ArbolVerPlaylistsJt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ArbolVerPlaylistsJtMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(ArbolVerPlaylistsJt);
+
+        jLabel6.setText("Agregar a favoritos");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -215,13 +223,17 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addContainerGap(180, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -259,7 +271,7 @@ public class Principal extends javax.swing.JFrame {
             UsuarioJdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UsuarioJdLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
                 .addContainerGap())
         );
         UsuarioJdLayout.setVerticalGroup(
@@ -804,9 +816,10 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Playlist p = new Playlist();
         p.setNombre(NombreCrearPlaylistTf.getText());
+        ArrayList<Cancion> a=new ArrayList();
+        a=temporal;
         p.setCancionest(temporal);
         UsuarioActual.getPlaylists().add(p);
-        temporal.clear();
         actualizarArbol(ArbolVerPlaylistsJt);
         JOptionPane.showMessageDialog(UsuarioJd, "Agregado");
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -821,6 +834,23 @@ public class Principal extends javax.swing.JFrame {
             AlbumCancionesCb.setModel(m);
         }
     }//GEN-LAST:event_PrincipalTpStateChanged
+
+    private void ArbolVerPlaylistsJtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArbolVerPlaylistsJtMouseClicked
+        // TODO add your handling code here:
+        if (evt.isMetaDown()) {
+            int seleccion=ArbolVerPlaylistsJt.getClosestRowForLocation(evt.getX(), evt.getY());
+            ArbolVerPlaylistsJt.setSelectionRow(seleccion);
+            Object o=ArbolVerPlaylistsJt.getSelectionPath().getLastPathComponent();
+            Cancion c=null;
+            try {
+                c=(Cancion)o;
+                UsuarioActual.getFavoritas().add(c);
+                JOptionPane.showMessageDialog(UsuarioJd, "Cancion agregada a favoritos");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(UsuarioJd, "No es una canción");
+            }
+        }
+    }//GEN-LAST:event_ArbolVerPlaylistsJtMouseClicked
 
     public void actualizarTablaUsuarios() {
         UsuariosTb.setModel(new javax.swing.table.DefaultTableModel(
@@ -873,7 +903,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void actualizarArbol(JTree arbol) {
         DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Playlists");
-        for (Playlist p : UsuarioActual.getPlaylists()) {
+        for (int i = 0; i < UsuarioActual.getPlaylists().size(); i++) {
+            Playlist p=UsuarioActual.getPlaylists().get(i);
             DefaultMutableTreeNode nodoPlaylist = new DefaultMutableTreeNode(p);
             for (Cancion c : p.getCancionest()) {
                 DefaultMutableTreeNode nodoCancion = new DefaultMutableTreeNode(c);
@@ -968,6 +999,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -994,5 +1026,5 @@ public class Principal extends javax.swing.JFrame {
     ArrayList<Usuario> Usuarios = new ArrayList();
     ArrayList<Album> Albums = new ArrayList();
     Usuario UsuarioActual = new Usuario();
-    ArrayList<Cancion> temporal = new ArrayList();
+    static ArrayList<Cancion> temporal = new ArrayList();
 }

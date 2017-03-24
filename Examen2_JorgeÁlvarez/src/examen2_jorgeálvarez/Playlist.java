@@ -42,7 +42,7 @@ public class Playlist implements Serializable {
 
     @Override
     public String toString() {
-        return "Playlist{" + "Nombre=" + Nombre + ", Cancionest=" + Cancionest + '}';
+        return Nombre;
     }
 
 }
