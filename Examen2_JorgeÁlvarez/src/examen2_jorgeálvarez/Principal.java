@@ -861,7 +861,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Albums.remove(AlbumsLi.getSelectedIndex());
-
         } catch (Exception e) {
         }
     }//GEN-LAST:event_EliminarMi1ActionPerformed

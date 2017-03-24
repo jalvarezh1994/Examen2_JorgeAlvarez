@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 /**
@@ -36,6 +37,7 @@ public class HiloReproducir extends Thread {
                 Logger.getLogger(HiloReproducir.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (tiempo <= cancion.getDuracion());
+        JOptionPane.showMessageDialog(pb, "Finalizó la canción");
     }
 
     public HiloReproducir(JLabel jl, JProgressBar pb, Cancion cancion) {
