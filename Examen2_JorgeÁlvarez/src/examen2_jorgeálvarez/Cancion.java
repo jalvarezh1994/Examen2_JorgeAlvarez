@@ -13,10 +13,10 @@ import java.io.Serializable;
  */
 public class Cancion implements Serializable {
 
-    String Nombre;
-    String Artista;
-    int Duracion;
-    String Genero;
+    private String Nombre;
+    private String Artista;
+    private int Duracion;
+    private String Genero;
 
     public Cancion() {
     }

@@ -16,7 +16,7 @@ public class Album implements Serializable {
 
     private String Nombre;
     private String Artista;
-    ArrayList<Cancion> Canciones = new ArrayList();
+    private ArrayList<Cancion> Canciones = new ArrayList();
 
     public Album() {
     }
