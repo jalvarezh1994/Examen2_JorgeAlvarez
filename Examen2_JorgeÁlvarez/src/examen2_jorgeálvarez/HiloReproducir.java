@@ -36,7 +36,6 @@ public class HiloReproducir extends Thread {
                 Logger.getLogger(HiloReproducir.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (tiempo <= cancion.getDuracion());
-
     }
 
     public HiloReproducir(JLabel jl, JProgressBar pb, Cancion cancion) {
